@@ -14,11 +14,15 @@ public class Component {
   protected int m_x, m_y, m_width, m_height;
 
   public Component() {
-    throw new Error("Not Yet Implemented");
+    this.m_parent = null;
+    this.m_x = 0;
+    this.m_y = 0;
   }
 
   public Component(Container parent) {
-    throw new Error("Not Yet Implemented");
+    this.m_parent = parent;
+    this.m_x = 0;
+    this.m_y = 0;
   }
 
   public String toString() {

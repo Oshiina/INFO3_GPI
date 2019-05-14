@@ -12,11 +12,11 @@ package warmup.layout;
 public class Container extends Component {
 
   Container() {
-    throw new Error("Not Yet Implemented");
+    super();
   }
 
   public Container(Container parent) {
-    throw new Error("Not Yet Implemented");
+    super(parent);
   }
 
   /**
