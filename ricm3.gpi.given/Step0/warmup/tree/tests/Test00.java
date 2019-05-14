@@ -1,7 +1,5 @@
 package warmup.tree.tests;
 
-import static org.junit.Assert.assertTrue;
-
 import warmup.tree.Leaf;
 import warmup.tree.Node;
 import warmup.tree.NotFoundException;
@@ -77,6 +75,8 @@ public class Test00 {
 		} catch (IllegalStateException e) {
 			System.out.println("test10 passed");
 		}
+		test11();
+		System.out.println("test11 passed");
 
 	}
 
@@ -169,4 +169,11 @@ public class Test00 {
 		new Node(l,"tata");
 	}
 
+	//verification path fonctionne
+	public static void test11() {
+		Tree t = new Tree();
+		String path = "/toto/tata";
+		Node n = t.makePath(path,false);
+		ensure(n.path().equals(path));
+	}
 }

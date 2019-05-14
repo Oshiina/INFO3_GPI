@@ -17,7 +17,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * 
  */
 @RunWith(Suite.class)
-@SuiteClasses({ warmup.tree.tests.TestsA.class, })
+@SuiteClasses({ warmup.tree.tests.TestsA.class, warmup.tree.tests.Test00JUnit.class, })
 public class AllTests {
 
 }

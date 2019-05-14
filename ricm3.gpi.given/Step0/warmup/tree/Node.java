@@ -78,13 +78,15 @@ public class Node {
 
 	public String path() {
 		if (this.m_parent == null) {
-			return "";
+			return (this.m_name);
 		}
-		return ("/"+this.m_parent.path());		
+		return (this.m_parent.path()+Tree.pathSeparatorString+this.m_name);		
 	}
 
 	public void remove() {
-		this.m_parent.m_children.remove(this);
+		if (this.m_parent != null) {
+			this.m_parent.m_children.remove(this);
+		}
 	}
 
 	public Iterator<Node> children() {

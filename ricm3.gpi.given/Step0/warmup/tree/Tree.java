@@ -36,7 +36,7 @@ public class Tree extends Node {
 		for (i=1;i<size;i++) {
 			n = n.child(paths[i]);
 			if(n==null) {
-				throw new NotFoundException(this.path()+path);
+				throw new NotFoundException(path);
 			}
 		}
 		return n;
