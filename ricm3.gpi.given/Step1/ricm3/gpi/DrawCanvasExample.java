@@ -1,11 +1,7 @@
 package ricm3.gpi;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-
 import ricm3.gpi.gui.Color;
-import ricm3.gpi.gui.Image;
 import ricm3.gpi.gui.Window;
 import ricm3.gpi.gui.layout.Component;
 import ricm3.gpi.gui.layout.Container;
@@ -40,7 +36,7 @@ public class DrawCanvasExample implements Runnable {
     cont.setBounds(50, 50, width+100, height+100);    
     
     Component center = new DrawCanvas(cont);
-    center.setBackground(Color.red);
+    center.setBackground(Color.white);
     center.setBounds(50, 50, width, height);
 
     Component top = new Component(cont);

@@ -6,6 +6,7 @@ import ricm3.gpi.gui.Window;
 import ricm3.gpi.gui.layout.Component;
 import ricm3.gpi.gui.layout.Container;
 import ricm3.gpi.gui.layout.Root;
+import ricm3.gpi.gui.widgets.Canvas;
 
 public class LayoutExample implements Runnable {
 
@@ -32,40 +33,41 @@ public class LayoutExample implements Runnable {
 		Container cont = new Container(root);
 		cont.setBackground(Color.black);
 		cont.setBounds(50, 50, width + 100, height + 100);
-		cont.setMouseListener(new ML("container"));
+		cont.setMouseListener(new ClickListener("container"));
 
 		Component center = new DrawCanvas(cont);
-		center.setBackground(Color.red);
+		center.setBackground(Color.white);
 		center.setBounds(50, 50, width, height);
-		center.setMouseListener(new ML("center"));
+		center.setMouseListener(new Canvas.CL((Canvas)center,"center"));
+		center.setKeyListener(new Canvas.KL((Canvas)center,"center"));
 
 		Component top = new Component(cont);
 		top.setBackground(Color.green);
 		top.setBounds(50, border, width, 50 - border);
-		top.setMouseListener(new ML("top"));
+		top.setMouseListener(new ClickListener("top"));
 
 		Component left = new Component(cont);
 		left.setBackground(Color.yellow);
 		left.setBounds(border, border, 50 - border, height + 100 - 2 * border);
-		left.setMouseListener(new ML("left"));
+		left.setMouseListener(new ClickListener("left"));
 
 		Component right = new Component(cont);
 		right.setBackground(Color.orange);
 		right.setBounds(width + 50, border, 50 - border, height + 100 - 2 * border);
-		right.setMouseListener(new ML("right"));
+		right.setMouseListener(new ClickListener("right"));
 
 		Component bottom = new Component(cont);
 		bottom.setBackground(Color.magenta);
 		bottom.setBounds(50, height + 50, width, 50 - border);
-		bottom.setMouseListener(new ML("bottom"));
+		bottom.setMouseListener(new ClickListener("bottom"));
 		root.repaint();
 	}
 
-	class ML implements MouseListener {
+	class ClickListener implements MouseListener {
 		boolean m_down;
 		String m_msg;
 
-		ML(String msg) {
+		ClickListener(String msg) {
 			m_msg = msg;
 		}
 
