@@ -36,12 +36,14 @@ public class Component {
 
 	protected Component() {
 		m_bgColor = Color.lightGray;
-		m_fgColor = Color.black;
+		m_fgColor = Color.cyan;
 	}
 
 	public Component(Container parent) {
 		this.m_parent = parent;
 		parent.m_children.add(this);
+		m_bgColor = Color.lightGray;
+		m_fgColor = Color.cyan;
 	}
 
 	public String toString() {

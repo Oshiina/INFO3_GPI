@@ -35,17 +35,8 @@ public class Container extends Component {
 	 * @return the component indexed by the given index.
 	 */
 	public Component childrenAt(int i) {
-		if (i < 0) {
-			return null;
-		}
-		Iterator<Component> iter = this.m_children.iterator();
-		Component c;
-		while (iter.hasNext()) {
-			c = iter.next();
-			if (i == 0) {
-				return c;
-			}
-			i--;
+		if(i>=0 && i<this.childrenCount()){
+			return this.m_children.get(i);
 		}
 		return null;
 	}
