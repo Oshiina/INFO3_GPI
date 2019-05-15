@@ -23,10 +23,12 @@ import ricm3.gpi.gui.layout.Location;
 public class Canvas extends Component {
 
 	int x1,y1,x2,y2;
+	boolean space;
 
 
 	public Canvas(Container parent) {
 		super(parent);
+		space = false;
 	}
 
 	@Override
@@ -35,8 +37,6 @@ public class Canvas extends Component {
 		Location l = new Location(0,0);
 		this.toGlobal(l);
 		g.fillRect(l.x(), l.y(), m_width, m_height);
-		init = false;
-
 		System.out.println("nonstp");
 		g.setColor(m_fgColor);
 		g.drawLine(x1, y1, x2, y2);
@@ -71,7 +71,7 @@ public class Canvas extends Component {
 
 		@Override
 		public void mouseMoved(int x, int y) {
-			if(m_down) {
+			if(m_down || m_c.space) {
 				m_c.x2 = x;
 				m_c.y2 = y;
 				m_c.repaint();
@@ -103,22 +103,20 @@ public class Canvas extends Component {
 		
 		@Override
 		public void keyPressed(char k, int code) {
-			if(code == KeyListener.VK_SPACE) {
-				m_down = true;
-			}
-			if(code == KeyListener.VK_C) {
-				m_c.x1 = m_c.x2;
-				m_c.y1 = m_c.y2;
-			}
-			m_c.repaint();
 			
 		}
 
 		@Override
 		public void keyReleased(char k, int code) {   	
 			if(code == KeyListener.VK_SPACE) {
-				m_down = false;
-
+				m_c.space =  !m_c.space;
+				m_c.x1 = m_c.x2;
+				m_c.y1 = m_c.y2;
+			}
+			if(code == KeyListener.VK_C) {
+				m_c.x1 = m_c.x2;
+				m_c.y1 = m_c.y2;
+				m_c.space = true;
 			}
 		}
 		
