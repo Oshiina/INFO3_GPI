@@ -22,7 +22,7 @@ import ricm3.gpi.gui.layout.Location;
 
 public class Canvas extends Component {
 
-	int x1,y1,x2,y2;
+	int x1,y1,x2,y2,x3,y3;
 	boolean space;
 
 
@@ -37,7 +37,6 @@ public class Canvas extends Component {
 		Location l = new Location(0,0);
 		this.toGlobal(l);
 		g.fillRect(l.x(), l.y(), m_width, m_height);
-		System.out.println("nonstp");
 		g.setColor(m_fgColor);
 		g.drawLine(x1, y1, x2, y2);
 
@@ -76,11 +75,14 @@ public class Canvas extends Component {
 				m_c.y2 = y;
 				m_c.repaint();
 			}
+			m_c.x3 = x;
+			m_c.y3 = y;
 		}
 
 		@Override
 		public void mouseExited() {
 			m_down = false;
+			m_c.space = false;
 		}
 
 		@Override
@@ -110,8 +112,10 @@ public class Canvas extends Component {
 		public void keyReleased(char k, int code) {   	
 			if(code == KeyListener.VK_SPACE) {
 				m_c.space =  !m_c.space;
-				m_c.x1 = m_c.x2;
-				m_c.y1 = m_c.y2;
+				m_c.x1 = m_c.x3;
+				m_c.y1 = m_c.y3;
+				m_c.x2 = m_c.x3;
+				m_c.y2 = m_c.y3;
 			}
 			if(code == KeyListener.VK_C) {
 				m_c.x1 = m_c.x2;
