@@ -39,6 +39,7 @@ public class LayoutExample implements Runnable {
 		center.setBackground(Color.white);
 		center.setBounds(50, 50, width, height);
 		center.setMouseListener(new Canvas.CL((Canvas)center,"center"));
+		center.setKeyListener(new Canvas.KL((Canvas)center,"center"));
 
 		Component top = new Component(cont);
 		top.setBackground(Color.green);

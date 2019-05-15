@@ -43,7 +43,7 @@ public class Component {
 		this.m_parent = parent;
 		parent.m_children.add(this);
 		m_bgColor = Color.lightGray;
-		m_fgColor = Color.cyan;
+		m_fgColor = Color.black;
 	}
 
 	public String toString() {
