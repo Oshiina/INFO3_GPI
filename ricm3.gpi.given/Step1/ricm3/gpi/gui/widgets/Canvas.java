@@ -109,19 +109,22 @@ public class Canvas extends Component {
 		}
 
 		@Override
-		public void keyReleased(char k, int code) {   	
-			if(code == KeyListener.VK_SPACE) {
+		public void keyReleased(char k, int code) {   
+			if(code == KeyListener.VK_C) {
+				m_c.x1 = 0;
+				m_c.y1 = 0;
+				m_c.x2 = 0;
+				m_c.y2 = 0;
+				m_c.repaint();
+			}
+			else if(code == KeyListener.VK_SPACE) {
 				m_c.space =  !m_c.space;
 				m_c.x1 = m_c.x3;
 				m_c.y1 = m_c.y3;
 				m_c.x2 = m_c.x3;
 				m_c.y2 = m_c.y3;
 			}
-			if(code == KeyListener.VK_C) {
-				m_c.x1 = m_c.x2;
-				m_c.y1 = m_c.y2;
-				m_c.space = true;
-			}
+			
 		}
 		
 	}

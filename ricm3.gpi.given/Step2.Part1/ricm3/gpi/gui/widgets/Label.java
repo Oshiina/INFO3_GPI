@@ -5,6 +5,7 @@ import ricm3.gpi.gui.Graphics;
 import ricm3.gpi.gui.Window;
 import ricm3.gpi.gui.layout.Component;
 import ricm3.gpi.gui.layout.Container;
+import ricm3.gpi.gui.layout.Location;
 
 /**
  * A widget that is a simple label.
@@ -45,7 +46,11 @@ public class Label extends Component {
   @Override
   public void paint(Graphics g) {
     super.paint(g);
-    throw new Error("Not Yet Implemented");
+    g.setColor(m_fgColor);
+    Location l = new Location(0,0);
+    toGlobal(l);
+    g.setFont(m_font);
+    g.drawString(m_chars, 0, m_chars.length, l.x(), l.y());
   }
 
 }

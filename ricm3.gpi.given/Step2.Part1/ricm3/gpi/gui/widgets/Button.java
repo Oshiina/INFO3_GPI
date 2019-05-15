@@ -26,10 +26,10 @@ public class Button extends Component {
   Font m_font;
   Image m_pressed;
   Image m_released;
+  ActionListener m_al;
   
   public Button(Container parent) {
     super(parent);
-    throw new Error("Not Yet Implemented");
   }
 
   public String getLabel() {
@@ -39,15 +39,15 @@ public class Button extends Component {
   @Override
   public void paint(Graphics g) {
     super.paint(g);
-    throw new Error("Not Yet Implemented");
+    g.drawImage(m_pressed,  m_x, m_y, m_width, m_height);
   }
 
   public void setActionListener(ActionListener al) {
-    throw new Error("Not Yet Implemented");
+    m_al = al;
   }
 
   public void setFont(Font f) {
-    throw new Error("Not Yet Implemented");
+	  m_font = f;
   }
 
   public void setLabel(String txt) {

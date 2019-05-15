@@ -11,6 +11,7 @@ import ricm3.gpi.gui.layout.Component;
 import ricm3.gpi.gui.layout.Root;
 import ricm3.gpi.gui.widgets.ActionListener;
 import ricm3.gpi.gui.widgets.Button;
+import ricm3.gpi.gui.widgets.Label;
 
 public class ButtonExample implements Runnable {
 
@@ -57,6 +58,11 @@ public class ButtonExample implements Runnable {
 
     Font font = m_win.font(Window.MONOSPACED, 12F);
     font = font.derive(Font.ITALIC | Font.BOLD, 24F);
+    
+    Label l = new Label(root,"bonjour");
+    l.setBounds(500,500,100,100);
+    l.setFont(font);
+    l.setForeground(Color.green);
 
     final String label = "Rasp-Pi";
     b = new Button(root);
