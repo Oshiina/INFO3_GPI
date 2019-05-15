@@ -3,6 +3,7 @@ package ricm3.gpi.gui.widgets;
 import ricm3.gpi.gui.Graphics;
 import ricm3.gpi.gui.layout.Component;
 import ricm3.gpi.gui.layout.Container;
+import ricm3.gpi.gui.layout.Location;
 
 /**
  * A canvas to draw on.
@@ -25,8 +26,10 @@ public class Canvas extends Component {
   
   @Override
   public void paint(Graphics g) {
-    g.setColor(m_bgColor);
-    g.fillRect(0, 0, m_width, m_height);
-  }
+		g.setColor(m_bgColor);
+		Location l = new Location(0,0);
+		this.toGlobal(l);
+		g.fillRect(l.x(), l.y(), m_width, m_height);
+	}
 
 }

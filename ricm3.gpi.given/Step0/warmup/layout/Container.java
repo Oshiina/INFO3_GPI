@@ -39,7 +39,10 @@ public class Container extends Component {
 	 *         index.
 	 */
 	public Component childrenAt(int i) {
-		return this.m_children.get(i);
+		if(i>=0 && i<this.childrenCount()){
+			return this.m_children.get(i);
+		}
+		return null;
 	}
 
 	/**
