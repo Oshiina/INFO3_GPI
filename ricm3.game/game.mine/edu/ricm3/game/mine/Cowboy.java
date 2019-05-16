@@ -48,6 +48,7 @@ public class Cowboy {
 	int m_dx,m_dy;
 	int m_nrows, m_ncols;
 	int m_idx;
+	int dir;
 	float m_scale;
 	long m_lastMove, m_lastReverse;
 	boolean m_canExplode;
@@ -67,7 +68,7 @@ public class Cowboy {
 		m_dy = 0;
 		m_scale= scale;
 		splitSprite();
-		setHitbox();
+		updateHitbox();
 	}
 
 	/*
@@ -89,19 +90,17 @@ public class Cowboy {
 		}
 	}
 	
-	/* 
-	 * This is creating the hitbox of our Cowboy by reducing his size in y axis
-	 */
+
+	void setExplosion(BufferedImage sprite, int rows, int columns) {
+		m_explosion = new Explosion(m_model,sprite, rows, columns);
+	}
 	
-	void setHitbox() {
+	
+	void updateHitbox() {
 		m_hitbox_x = (int) (m_x);
 		m_hitbox_y = (int) (m_y + m_scale * 8);
 		m_hitbox_w = (int) (m_w * m_scale);
 		m_hitbox_h = (int) ((m_h - 15) * m_scale);
-	}
-
-	void setExplosion(BufferedImage sprite, int rows, int columns) {
-		m_explosion = new Explosion(m_model,sprite, rows, columns);
 	}
 
 	/**
@@ -126,6 +125,7 @@ public class Cowboy {
 			collision();
 			m_x += m_dx;
 			m_y += m_dy;
+			updateHitbox();
 		}
 	}
 
@@ -141,8 +141,8 @@ public class Cowboy {
 				this.m_dx = 0;
 				this.m_dy = 0;
 			}
+			
 		}
-		setHitbox();
 	}
 
 	/**
