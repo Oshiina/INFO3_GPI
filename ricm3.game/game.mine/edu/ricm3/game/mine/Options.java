@@ -22,10 +22,10 @@ public class Options {
   
   public static final int NSQUARES = 6;
   public static boolean STROBBING_SQUARES = false;
-  public static boolean SHOW_COWBOYS = false;
+  public static boolean SHOW_COWBOYS = true;
   public static boolean EXPLODE_COWBOYS = false;
   public static int SHOW_NCOWBOYS = 1;
-  public static int MAX_NCOWBOYS = 8;
+  public static int MAX_NCOWBOYS = 1;
   
 
   public static final boolean ECHO_MOUSE = true;

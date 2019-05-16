@@ -25,57 +25,58 @@ import edu.ricm3.game.GameView;
 
 public class View extends GameView {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  Color m_background = Color.gray;
-  long m_last;
-  int m_npaints;
-  int m_fps;
-  Model m_model;
-  // Controller m_ctr;
-  
-  public View(Model m) {
-    m_model = m;
-    // m_ctr = c;
-  }
-  
-  public void step(long now) {
+	Color m_background = Color.gray;
+	long m_last;
+	int m_npaints;
+	int m_fps;
+	Model m_model;
+	// Controller m_ctr;
 
-  }
-  
-  private void computeFPS() {
-    long now = System.currentTimeMillis();
-    if (now - m_last > 1000L) {
-      m_fps = m_npaints;
-      m_last = now;
-      m_npaints = 0;
-    }
-    m_game.setFPS(m_fps, null);
-    // m_game.setFPS(m_fps, "npaints=" + m_npaints);
-    m_npaints++;
-  }
+	public View(Model m) {
+		m_model = m;
+		// m_ctr = c;
+	}
 
-  @Override
-  protected void _paint(Graphics g) {
-    computeFPS();
+	public void step(long now) {
 
-    // erase background
-    g.setColor(m_background);
-    g.fillRect(0, 0, getWidth(), getHeight());
+	}
 
-    // Paint our model, grabbing the elements,
-    // in our case, the squares.
-    Iterator<Square> iter = m_model.squares();
-    while (iter.hasNext()) {
-      Square s = iter.next();
-      s.paint(g);
-    }
-    // do not forget the cowboys, if they are visible
-    if (Options.SHOW_COWBOYS) {
-      Cowboy[] cowboys = m_model.m_cowboys;
-      for (int i = 0; i < cowboys.length && i<Options.SHOW_NCOWBOYS; i++)
-        cowboys[i].paint(g);
-    }
-  }
-  
+	private void computeFPS() {
+		long now = System.currentTimeMillis();
+		if (now - m_last > 1000L) {
+			m_fps = m_npaints;
+			m_last = now;
+			m_npaints = 0;
+		}
+		m_game.setFPS(m_fps, null);
+		// m_game.setFPS(m_fps, "npaints=" + m_npaints);
+		m_npaints++;
+	}
+
+	@Override
+	protected void _paint(Graphics g) {
+		computeFPS();
+
+		// erase background
+		g.setColor(m_background);
+		g.fillRect(0, 0, getWidth(), getHeight());
+
+		// Paint our model, grabbing the elements,
+		// in our case, the squares.
+
+
+	    // in our case, the squares.
+	    Iterator<Rect> iter = m_model.rects();
+	    while (iter.hasNext()) {
+	      Rect s = iter.next();
+	      s.paint(g);
+	    }
+
+		Cowboy cowboys = m_model.m_cowboys;
+		cowboys.paint(g);
+
+
+	}
 }

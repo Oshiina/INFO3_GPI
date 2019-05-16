@@ -18,9 +18,7 @@
 package edu.ricm3.game.mine;
 
 import java.awt.Button;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,9 +43,7 @@ public class Controller extends GameController implements ActionListener {
 
   Model m_model;
   View m_view;
-  Button m_cowboysOn;
   Button m_explosionsOn;
-  Button m_strobesOn;
   Button m_plus, m_minus;
   Music m_player;
 
@@ -85,25 +81,39 @@ public class Controller extends GameController implements ActionListener {
         System.out.println("Hey! I am back");
       } catch (InterruptedException ex) {
       }
-    } else if (e.getKeyChar() == '+') {
-      Overhead h = m_model.getOverhead();
-      h.inc();
-    } else if (e.getKeyChar() == '-') {
-      Overhead h = m_model.getOverhead();
-      h.dec();
-    }
+    } 
   }
 
   @Override
   public void keyPressed(KeyEvent e) {
-    if (Options.ECHO_KEYBOARD)
-      System.out.println("KeyPressed: " + e.getKeyChar() + " code=" + e.getKeyCode());
+	  if (e.getKeyChar() == 'd') {
+		  m_model.m_cowboys.m_dx = 2;
+	  }
+	  else if(e.getKeyChar() == 'q') {
+		  m_model.m_cowboys.m_dx = -2;
+	  }
+	  else if(e.getKeyChar() == 'z') {
+		  m_model.m_cowboys.m_dy = -2;
+	  }
+	  else if(e.getKeyChar() == 's') {
+		  m_model.m_cowboys.m_dy = 2;
+	  }
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
-    if (Options.ECHO_KEYBOARD)
-      System.out.println("KeyReleased: " + e.getKeyChar() + " code=" + e.getKeyCode());
+	  if (e.getKeyChar() == 'd') {
+		  m_model.m_cowboys.m_dx = 0;
+	  }
+	  else if(e.getKeyChar() == 'q') {
+		  m_model.m_cowboys.m_dx = 0;
+	  }
+	  else if(e.getKeyChar() == 'z') {
+		  m_model.m_cowboys.m_dy = 1;
+	  }
+	  else if(e.getKeyChar() == 's') {
+		  m_model.m_cowboys.m_dy = 1;
+	  }
   }
 
   @Override
@@ -152,14 +162,6 @@ public class Controller extends GameController implements ActionListener {
     Container cont = new Container();
     cont.setLayout(new FlowLayout());
 
-    m_strobesOn = new Button("Strobes");
-    m_strobesOn.addActionListener(this);
-    cont.add(m_strobesOn);
-
-    m_cowboysOn = new Button("Cowboys");
-    m_cowboysOn.addActionListener(this);
-    cont.add(m_cowboysOn);
-
     m_plus = new Button("+");
     m_plus.addActionListener(this);
     cont.add(m_plus);
@@ -186,11 +188,7 @@ public class Controller extends GameController implements ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     Object s = e.getSource();
-    if (s == m_strobesOn)
-      Options.STROBBING_SQUARES = !Options.STROBBING_SQUARES;
-    else if (s == m_cowboysOn)
-      Options.SHOW_COWBOYS = !Options.SHOW_COWBOYS;
-    else if (s == m_explosionsOn)
+    if (s == m_explosionsOn)
       Options.EXPLODE_COWBOYS = !Options.EXPLODE_COWBOYS;
     else if (s == m_plus && Options.SHOW_NCOWBOYS < Options.MAX_NCOWBOYS)
       Options.SHOW_NCOWBOYS++;

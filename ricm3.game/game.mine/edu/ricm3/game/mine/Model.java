@@ -25,90 +25,74 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
-
 import edu.ricm3.game.GameModel;
 
+
 public class Model extends GameModel {
-  LinkedList<Square> m_squares;
-  BufferedImage m_cowboySprite;
-  BufferedImage m_explosionSprite;
-  Cowboy[] m_cowboys;
-  Random rand = new Random();
-  Overhead m_overhead = new Overhead();
+	LinkedList<Rect> m_rects;
+	BufferedImage m_cowboySprite;
+	BufferedImage m_explosionSprite;
+	Cowboy m_cowboys;
+	Random rand = new Random();
 
-  public Model() {
-    loadSprites();
-    m_cowboys = new Cowboy[Options.MAX_NCOWBOYS];
-    for (int i = 0; i < m_cowboys.length; i++) {
-      m_cowboys[i] = new Cowboy(this, i, m_cowboySprite, 4, 6, 100 + i * 100, 200 + i * 100, 3F);
-      m_cowboys[i].setExplosion(m_explosionSprite, 11, 10);
-    }
+	public Model() {
+		loadSprites();
+		m_cowboys = new Cowboy(this,0,m_cowboySprite,4,6,200,477,3F);
 
-    m_squares = new LinkedList<Square>();
-    for (int i = 0; i < Options.NSQUARES; i++)
-      m_squares.add(new Square(this, rand.nextInt(200), rand.nextInt(200)));
-  }
-  
-  @Override
-  public void shutdown() {
-    
-  }
+		m_rects = new LinkedList<Rect>();
+		m_rects.add(new Rect(this, 0,600,1024,200));
+		m_rects.add(new Rect(this, 300,400,200,20));
 
-  public Overhead getOverhead() {
-    return m_overhead;
-  }
+	}
 
-  public Cowboy[] cowboys() {
-    return m_cowboys;
-  }
+	@Override
+	public void shutdown() {
 
-  public Iterator<Square> squares() {
-    return m_squares.iterator();
-  }
-  
-  /**
-   * Simulation step.
-   * 
-   * @param now
-   *          is the current time in milliseconds.
-   */
-  @Override
-  public void step(long now) {
-    
-    m_overhead.overhead();
-    
-    Iterator<Square> iter = m_squares.iterator();
-    while (iter.hasNext()) {
-      Square s = iter.next();
-      s.step(now);
-    }
-    for (int i = 0; i < m_cowboys.length; i++)
-      m_cowboys[i].step(now);
-  }
+	}
 
-  private void loadSprites() {
-    /*
-     * Cowboy with rifle, western style; png; 48x48 px sprite size
-     * Krasi Wasilev ( http://freegameassets.blogspot.com)
-     */
-    File imageFile = new File("game.sample/sprites/winchester.png");
-    try {
-      m_cowboySprite = ImageIO.read(imageFile);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      System.exit(-1);
-    }
-    /*
-     * Long explosion set; png file; 64x64 px sprite size
-     * Krasi Wasilev ( http://freegameassets.blogspot.com)
-     */
-    imageFile = new File("game.sample/sprites/explosion01_set_64.png");
-    try {
-      m_explosionSprite = ImageIO.read(imageFile);
-    } catch (IOException ex) {
-      ex.printStackTrace();
-      System.exit(-1);
-    }
-  }
+
+	public Cowboy cowboys() {
+		return m_cowboys;
+	}
+
+	public Iterator<Rect> rects() {
+		return m_rects.iterator();
+	}
+	/**
+	 * Simulation step.
+	 * 
+	 * @param now
+	 *          is the current time in milliseconds.
+	 */
+	@Override
+	public void step(long now) {
+
+		m_cowboys.step(now);
+	}
+
+	private void loadSprites() {
+		/*
+		 * Cowboy with rifle, western style; png; 48x48 px sprite size
+		 * Krasi Wasilev ( http://freegameassets.blogspot.com)
+		 */
+		File imageFile = new File("game.sample/sprites/winchester.png");
+		try {
+			m_cowboySprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		/*
+		 * Long explosion set; png file; 64x64 px sprite size
+		 * Krasi Wasilev ( http://freegameassets.blogspot.com)
+		 */
+		imageFile = new File("game.sample/sprites/explosion01_set_64.png");
+		try {
+			m_explosionSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+	}
 
 }
