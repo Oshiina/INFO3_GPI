@@ -87,16 +87,16 @@ public class Controller extends GameController implements ActionListener {
   @Override
   public void keyPressed(KeyEvent e) {
 	  if (e.getKeyChar() == 'd') {
-		  m_model.m_cowboys.m_dx = 2;
+		  m_model.m_cowboys.m_dx = 1;
 	  }
 	  else if(e.getKeyChar() == 'q') {
-		  m_model.m_cowboys.m_dx = -2;
+		  m_model.m_cowboys.m_dx = -1;
 	  }
 	  else if(e.getKeyChar() == 'z') {
-		  m_model.m_cowboys.m_dy = -2;
+		  m_model.m_cowboys.m_dy = -1;
 	  }
 	  else if(e.getKeyChar() == 's') {
-		  m_model.m_cowboys.m_dy = 2;
+		  m_model.m_cowboys.m_dy = 1;
 	  }
   }
 
@@ -104,17 +104,17 @@ public class Controller extends GameController implements ActionListener {
   public void keyReleased(KeyEvent e) {
 	  if (e.getKeyChar() == 'd') {
 		  m_model.m_cowboys.m_dx = 0;
-		  m_model.m_cowboys.m_dy = 2;
+		  m_model.m_cowboys.m_dy = 1;
 	  }
 	  else if(e.getKeyChar() == 'q') {
 		  m_model.m_cowboys.m_dx = 0;
-		  m_model.m_cowboys.m_dy = 2;
+		  m_model.m_cowboys.m_dy = 1;
 	  }
 	  else if(e.getKeyChar() == 'z') {
-		  m_model.m_cowboys.m_dy = 2;
+		  m_model.m_cowboys.m_dy = 1;
 	  }
 	  else if(e.getKeyChar() == 's') {
-		  m_model.m_cowboys.m_dy = 2;
+		  m_model.m_cowboys.m_dy = 1;
 	  }
   }
 

@@ -39,67 +39,28 @@ import java.util.Iterator;
  * @author Pr. Olivier Gruber
  */
 
-public class Cowboy {
-	BufferedImage m_sprite;
-	int m_w, m_h;
+public class Cowboy extends Entity{
+
 	int m_hitbox_w, m_hitbox_h;
-	int m_x, m_y;
 	int m_hitbox_x,m_hitbox_y;
-	int m_dx,m_dy;
-	int m_nrows, m_ncols;
-	int m_idx;
-	int dir;
-	float m_scale;
-	long m_lastMove, m_lastReverse;
-	boolean m_canExplode;
-	boolean m_explode;
-	BufferedImage[] m_sprites;
-	Explosion m_explosion;
-	Model m_model;
+	int m_nsteps;
 
 	Cowboy(Model model, int no, BufferedImage sprite, int rows, int columns, int x, int y, float scale) {
-		m_model = model;
-		m_sprite = sprite;
-		m_ncols = columns;
-		m_nrows = rows;
-		m_x = x;
-		m_y = y;
-		m_dx = 0;
-		m_dy = 0;
-		m_scale= scale;
-		splitSprite();
+		super(model,no,sprite,rows,columns,x,y,scale);
 		updateHitbox();
+		m_nsteps = 0;
 	}
 
-	/*
-	 * This is about splitting the animated sprite into the basic
-	 * sub-images constituting the animation. 
-	 */
-	void splitSprite() {
-		int width = m_sprite.getWidth(null);
-		int height = m_sprite.getHeight(null);
-		m_sprites = new BufferedImage[m_nrows * m_ncols];
-		m_w = width / m_ncols;
-		m_h = height / m_nrows;
-		for (int i = 0; i < m_nrows; i++) {
-			for (int j = 0; j < m_ncols; j++) {
-				int x = j * m_w;
-				int y = i * m_h;
-				m_sprites[(i * m_ncols) + j] = m_sprite.getSubimage(x, y, m_w, m_h);
-			}
-		}
-	}
-	
 
 	void setExplosion(BufferedImage sprite, int rows, int columns) {
 		m_explosion = new Explosion(m_model,sprite, rows, columns);
 	}
-	
-	
+
+
 	void updateHitbox() {
-		m_hitbox_x = (int) (m_x);
+		m_hitbox_x = (int) (m_x + m_scale * 4);
 		m_hitbox_y = (int) (m_y + m_scale * 8);
-		m_hitbox_w = (int) (m_w * m_scale);
+		m_hitbox_w = (int) ((m_w - 8) * m_scale);
 		m_hitbox_h = (int) ((m_h - 15) * m_scale);
 	}
 
@@ -120,12 +81,21 @@ public class Cowboy {
 			return;
 		}
 		long elapsed = now - m_lastMove;
-		if (elapsed > 5L) {
+		if (elapsed > 2L) {
 			m_lastMove = now;
 			collision();
 			m_x += m_dx;
 			m_y += m_dy;
+			if(m_nsteps == 32) {
+				m_nsteps = 0;
+				if(m_dx < 0 && m_no_sprite !=7) selectSprite(7);
+				else if(m_dx < 0) selectSprite(8);
+				else if(m_dx > 0 && m_no_sprite !=19) selectSprite(19);
+				else if(m_dx > 0) selectSprite(20);
+				else selectSprite(0);
+			}
 			updateHitbox();
+			m_nsteps++;
 		}
 	}
 
@@ -141,7 +111,7 @@ public class Cowboy {
 				this.m_dx = 0;
 				this.m_dy = 0;
 			}
-			
+
 		}
 	}
 
@@ -158,7 +128,7 @@ public class Cowboy {
 				m_canExplode = false;
 			}
 		} else {
-			Image img = m_sprites[m_idx];
+			Image img = m_sprite;
 			int w = (int)(m_scale * m_w);
 			int h = (int)(m_scale * m_h);
 			g.drawImage(img, m_x, m_y, w, h, null);

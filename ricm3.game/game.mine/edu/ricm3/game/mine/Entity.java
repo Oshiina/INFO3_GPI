@@ -1,0 +1,55 @@
+package edu.ricm3.game.mine;
+
+import java.awt.image.BufferedImage;
+
+public class Entity {
+	
+	int m_w, m_h;
+	int m_x, m_y;
+	int m_dx,m_dy;
+	int m_nrows, m_ncols;
+	int m_no_sprite;
+	float m_scale;
+	long m_lastMove, m_lastReverse;
+	boolean m_canExplode;
+	boolean m_explode;
+	BufferedImage m_sprite;
+	BufferedImage[] m_sprites;
+	Explosion m_explosion;
+	Model m_model;
+	
+	Entity(Model model, int no, BufferedImage sprite, int rows, int columns, int x, int y, float scale){
+		m_model = model;
+		m_sprite = sprite;
+		m_ncols = columns;
+		m_nrows = rows;
+		m_x = x;
+		m_y = y;
+		m_dx = 0;
+		m_dy = 0;
+		m_scale= scale;
+		splitSprite();
+		selectSprite(no);
+	}
+	
+	void splitSprite() {
+		int width = m_sprite.getWidth(null);
+		int height = m_sprite.getHeight(null);
+		m_sprites = new BufferedImage[m_nrows * m_ncols];
+		m_w = width / m_ncols;
+		m_h = height / m_nrows;
+		for (int i = 0; i < m_nrows; i++) {
+			for (int j = 0; j < m_ncols; j++) {
+				int x = j * m_w;
+				int y = i * m_h;
+				m_sprites[(i * m_ncols) + j] = m_sprite.getSubimage(x, y, m_w, m_h);
+			}
+		}
+	}
+	
+	void selectSprite(int no) {
+		m_sprite = m_sprites[no];
+		m_no_sprite = no;
+	}
+	
+}

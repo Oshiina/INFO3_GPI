@@ -19,30 +19,25 @@ package edu.ricm3.game.mine;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Random;
+
 
 public class Rect {
   Model m_model;
   Color m_color;
   int m_x, m_y;
   int m_size_x, m_size_y;
-  int m_red, m_green, m_blue;
 
   long m_lastResize;
   long m_lastMove;
   int gap;
 
-  Rect(Model m, int x, int y,int sizex, int sizey) {
+  Rect(Model m, int x, int y,int sizex, int sizey, int r, int v, int b) {
     m_model = m;
     m_x = x;
     m_y = y;
     m_size_x = sizex;
     m_size_y = sizey;
-    Random rand = new Random();
-    m_red = rand.nextInt(255);
-    m_green = rand.nextInt(255);
-    m_blue = rand.nextInt(255);
-    m_color = new Color(m_red, m_green, m_blue);
+    m_color = new Color(r, v, b);;
   }
 
   /**
@@ -54,10 +49,6 @@ public class Rect {
   void step(long now) {
 
   }
-
-  void changeColor(int dc) {
-
-  }
   
   /**
    * paints this Rect on the screen.
@@ -65,7 +56,7 @@ public class Rect {
    * @param g
    */
   void paint(Graphics g) {
-    g.setColor(Color.green);
+    g.setColor(m_color);
     g.fillRect(m_x, m_y, m_size_x, m_size_y);
   }
 

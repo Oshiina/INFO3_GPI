@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 import edu.ricm3.game.GameModel;
 
@@ -37,12 +36,13 @@ public class Model extends GameModel {
 
 	public Model() {
 		loadSprites();
-		m_cowboys = new Cowboy(this,0,m_cowboySprite,4,6,200,477,3F);
+		m_cowboys = new Cowboy(this,2,m_cowboySprite,4,6,200,477,3F);
 
 		m_rects = new LinkedList<Rect>();
-		m_rects.add(new Rect(this, 0,600,1024,200));
-		m_rects.add(new Rect(this, 300,400,200,20));
-
+		
+		m_rects.add(new Rect(this, 0,600,1024,200,100,255,20));
+		m_rects.add(new Rect(this, 0,620,1024,80,88,41,0));
+		m_rects.add(new Rect(this, 300,400,200,20,255,125,0));
 	}
 
 	@Override
