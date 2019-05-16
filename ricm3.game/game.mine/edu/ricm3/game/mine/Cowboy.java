@@ -44,11 +44,15 @@ public class Cowboy extends Entity{
 	int m_hitbox_w, m_hitbox_h;
 	int m_hitbox_x,m_hitbox_y;
 	int m_nsteps;
+	long m_debutsaut;
+	boolean m_saut,m_finsaut;
 
 	Cowboy(Model model, int no, BufferedImage sprite, int rows, int columns, int x, int y, float scale) {
 		super(model,no,sprite,rows,columns,x,y,scale);
 		updateHitbox();
 		m_nsteps = 0;
+		m_debutsaut = 0;
+		m_saut = false;
 	}
 
 
@@ -64,6 +68,28 @@ public class Cowboy extends Entity{
 		m_hitbox_h = (int) ((m_h - 15) * m_scale);
 	}
 
+	void saut(long now) {
+		if(m_saut) {
+			long dureesaut = now - m_debutsaut;
+			if(m_debutsaut == 0) {
+				m_debutsaut = now;
+			}
+			else if(dureesaut > 750L || m_finsaut) {
+				m_dy = 1;
+			}
+		}
+		else {
+			Iterator<Rect> iter = m_model.rects();
+			while(iter.hasNext()) {
+				Rect r = iter.next();
+				if(m_hitbox_y+m_dy+m_hitbox_h == r.m_y && (m_hitbox_x+m_dx < r.m_x+r.m_size_x && m_hitbox_x+m_dx+m_hitbox_w > r.m_x)) {
+					m_debutsaut = 0;
+					m_finsaut = false;
+				}
+			}
+		}
+	}
+
 	/**
 	 * Simulation step. This is essentially a finite state automaton.
 	 * Here, you decide what happens as time flies.
@@ -71,18 +97,10 @@ public class Cowboy extends Entity{
 	 *          is the current time in milliseconds.
 	 */
 	void step(long now) {
-		if (m_canExplode && m_model.rand.nextInt(10000) > 9990) {
-			m_explode = true;
-			int w = (int)(m_scale * m_w);
-			int h = (int)(m_scale * m_h);
-			int x = m_x + w/2;
-			int y = m_y + h/2;
-			m_explosion.setPosition(x, y, 1F);
-			return;
-		}
-		long elapsed = now - m_lastMove;
-		if (elapsed > 2L) {
+		long elapsed = now - m_lastMove;		
+		if (elapsed > 1L) {
 			m_lastMove = now;
+			saut(now);			
 			collision();
 			m_x += m_dx;
 			m_y += m_dy;
@@ -100,13 +118,13 @@ public class Cowboy extends Entity{
 	}
 
 	void collision() {
+		int x = m_hitbox_x;
+		int y = m_hitbox_y;
+		int w = m_hitbox_w;
+		int h = m_hitbox_h;
 		Iterator<Rect> iter = m_model.rects();
 		while(iter.hasNext()) {
 			Rect r = iter.next();
-			int x = m_hitbox_x;
-			int y = m_hitbox_y;
-			int w = m_hitbox_w;
-			int h = m_hitbox_h;
 			if (x+m_dx < r.m_x+r.m_size_x && x+m_dx+w > r.m_x && y+m_dy < r.m_y+r.m_size_y && y+m_dy+h > r.m_y) {
 				this.m_dx = 0;
 				this.m_dy = 0;
@@ -121,22 +139,14 @@ public class Cowboy extends Entity{
 	 * @param g
 	 */
 	void paint(Graphics g) {
-		if (m_explode) {
-			m_explosion.paint(g);
-			if (m_explosion.done()) {
-				m_explode = false;
-				m_canExplode = false;
-			}
-		} else {
-			Image img = m_sprite;
-			int w = (int)(m_scale * m_w);
-			int h = (int)(m_scale * m_h);
-			g.drawImage(img, m_x, m_y, w, h, null);
-			g.setColor(Color.red);
-			g.drawRect(m_x, m_y, w, h);
-			g.setColor(Color.blue);
-			g.drawRect(m_hitbox_x, m_hitbox_y,m_hitbox_w,m_hitbox_h);
-		}
+		Image img = m_sprite;
+		int w = (int)(m_scale * m_w);
+		int h = (int)(m_scale * m_h);
+		g.drawImage(img, m_x, m_y, w, h, null);
+		g.setColor(Color.red);
+		g.drawRect(m_x, m_y, w, h);
+		g.setColor(Color.blue);
+		g.drawRect(m_hitbox_x, m_hitbox_y,m_hitbox_w,m_hitbox_h);
 	}
 
 }

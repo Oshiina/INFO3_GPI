@@ -94,6 +94,7 @@ public class Controller extends GameController implements ActionListener {
 	  }
 	  else if(e.getKeyChar() == 'z') {
 		  m_model.m_cowboys.m_dy = -1;
+		  m_model.m_cowboys.m_saut = true;
 	  }
 	  else if(e.getKeyChar() == 's') {
 		  m_model.m_cowboys.m_dy = 1;
@@ -112,6 +113,8 @@ public class Controller extends GameController implements ActionListener {
 	  }
 	  else if(e.getKeyChar() == 'z') {
 		  m_model.m_cowboys.m_dy = 1;
+		  m_model.m_cowboys.m_saut = false;
+		  m_model.m_cowboys.m_finsaut = true;
 	  }
 	  else if(e.getKeyChar() == 's') {
 		  m_model.m_cowboys.m_dy = 1;

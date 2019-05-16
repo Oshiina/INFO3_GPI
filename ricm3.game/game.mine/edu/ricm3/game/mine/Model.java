@@ -42,7 +42,7 @@ public class Model extends GameModel {
 		
 		m_rects.add(new Rect(this, 0,600,1024,200,100,255,20));
 		m_rects.add(new Rect(this, 0,620,1024,80,88,41,0));
-		m_rects.add(new Rect(this, 300,400,200,20,255,125,0));
+		m_rects.add(new Rect(this, 584,400,200,20,255,125,0));
 	}
 
 	@Override
