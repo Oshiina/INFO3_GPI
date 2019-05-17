@@ -89,6 +89,12 @@ public class Cowboy extends Entity{
 		}
 	}
 	
+	void chute() {
+		if(!collision()) {
+			m_y += 1;
+		}
+	}
+	
 	boolean surSol() {
 		int x = m_hitbox_x;
 		int y = m_hitbox_y;
@@ -97,7 +103,8 @@ public class Cowboy extends Entity{
 		Iterator<Rect> iter = m_model.rects();
 		while(iter.hasNext()) {
 			Rect r = iter.next();
-			if (y+h >= r.m_y && ( x < r.m_x + r.m_size_x || x + w > m_x)) {
+			if (y+h == r.m_y && x < r.m_x + r.m_size_x && x + w > r.m_x) {
+				System.out.println("coucou");
 				return true;
 			}
 		}
@@ -122,9 +129,8 @@ public class Cowboy extends Entity{
 			m_model.m_cam.m_posx += m_dx;
 			m_x += m_dx;
 			m_y += m_dy;
-			if(!surSol()) {
-				m_y += 1;
-				System.out.println("coucou");
+			if(!surSol() && !m_saut) {
+				m_dy = 1;
 			}
 			if(m_nsteps == 32) {
 				m_nsteps = 0;
