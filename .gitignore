@@ -1,5 +1,5 @@
 *.o
 *.pdf
 **/.metadata
-*.png
 *.class
+ricm3.gpi.given/images/*
