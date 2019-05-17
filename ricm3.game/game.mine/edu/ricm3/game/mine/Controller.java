@@ -17,9 +17,9 @@
  */
 package edu.ricm3.game.mine;
 
-import java.awt.Button;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -43,8 +43,7 @@ public class Controller extends GameController implements ActionListener {
 
 	Model m_model;
 	View m_view;
-	Button m_explosionsOn;
-	Button m_plus, m_minus;
+	Label m_hp;
 	Music m_player;
 
 	public Controller(Model model, View view) {
@@ -61,6 +60,7 @@ public class Controller extends GameController implements ActionListener {
 	public void step(long now) {
 		m_model.step(now);
 		m_view.step(now);
+		m_hp.setText("hp : "+Integer.toString(m_model.cowboys().m_hp));
 	}
 
 	@Override
@@ -154,6 +154,10 @@ public class Controller extends GameController implements ActionListener {
 	public void notifyVisible() {
 		Container cont = new Container();
 		cont.setLayout(new FlowLayout());
+		
+		m_hp = new Label("hp : "+Integer.toString(m_model.cowboys().m_hp));
+		cont.add(m_hp);
+
 
 		File file;
 		file = new File("game.sample/sprites/Future-RPG.wav");
@@ -168,13 +172,8 @@ public class Controller extends GameController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object s = e.getSource();
-		if (s == m_explosionsOn)
-			Options.EXPLODE_COWBOYS = !Options.EXPLODE_COWBOYS;
-		else if (s == m_plus && Options.SHOW_NCOWBOYS < Options.MAX_NCOWBOYS)
-			Options.SHOW_NCOWBOYS++;
-		else if (s == m_minus && Options.SHOW_NCOWBOYS > 0)
-			Options.SHOW_NCOWBOYS--;
+
+
 	}
 
 }

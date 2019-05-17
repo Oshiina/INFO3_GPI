@@ -74,7 +74,7 @@ public class View extends GameView {
 		}
 
 		Cowboy cowboys = m_model.cowboys();
-		if(!cowboys.m_explode) {
+		if(!cowboys.m_explode && cowboys.m_hp > 0) {
 			cowboys.paint(g);
 		}
 		else {

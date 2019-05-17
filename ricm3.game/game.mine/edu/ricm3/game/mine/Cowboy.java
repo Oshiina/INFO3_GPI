@@ -41,6 +41,7 @@ public class Cowboy extends Entity {
 
 	int m_initx;
 	int m_nsteps;
+	int m_hp;
 	long m_debutsaut;
 	boolean m_saut, m_finsaut;
 	boolean m_explode;
@@ -54,6 +55,7 @@ public class Cowboy extends Entity {
 		m_saut = false;
 		m_initx = x;
 		m_explode = false;
+		m_hp = 3;
 	}
 
 	void setExplosion(BufferedImage sprite, int rows, int columns) {
@@ -110,7 +112,7 @@ public class Cowboy extends Entity {
 	 * @param now is the current time in milliseconds.
 	 */
 	void step(long now) {
-		if (!m_explode) {
+		if (!m_explode && m_hp > 0) {
 			long elapsed = now - m_lastMove;
 			if (elapsed > 1L) {
 				m_lastMove = now;
@@ -143,6 +145,7 @@ public class Cowboy extends Entity {
 					setExplosion(m_model.m_explosionSprite, 11, 10);
 					m_explosion.setPosition(m_initx+m_w, m_y+m_h, m_scale);
 					m_explosion.step(now);
+					m_hp --;
 				}
 			}
 
