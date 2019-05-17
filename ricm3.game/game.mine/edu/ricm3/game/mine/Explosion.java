@@ -76,6 +76,9 @@ public class Explosion {
       m_lastChange = now;
       if (m_idx < m_sprites.length)
         m_idx++;
+      else {
+    	  m_model.cowboys().m_explode = false;
+      }
     }
   }
 

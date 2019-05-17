@@ -14,11 +14,8 @@ public class Entity {
 	int m_no_sprite;
 	float m_scale;
 	long m_lastMove, m_lastReverse;
-	boolean m_canExplode;
-	boolean m_explode;
 	BufferedImage m_sprite;
 	BufferedImage[] m_sprites;
-	Explosion m_explosion;
 	Model m_model;
 
 	Entity(Model model, int no, BufferedImage sprite, int rows, int columns, int x, int y, float scale) {

@@ -43,6 +43,8 @@ public class Cowboy extends Entity {
 	int m_nsteps;
 	long m_debutsaut;
 	boolean m_saut, m_finsaut;
+	boolean m_explode;
+	Explosion m_explosion;
 
 	Cowboy(Model model, int no, BufferedImage sprite, int rows, int columns, int x, int y, float scale) {
 		super(model, no, sprite, rows, columns, x, y, scale);
@@ -51,6 +53,7 @@ public class Cowboy extends Entity {
 		m_debutsaut = 0;
 		m_saut = false;
 		m_initx = x;
+		m_explode = false;
 	}
 
 	void setExplosion(BufferedImage sprite, int rows, int columns) {
@@ -107,36 +110,45 @@ public class Cowboy extends Entity {
 	 * @param now is the current time in milliseconds.
 	 */
 	void step(long now) {
-		long elapsed = now - m_lastMove;
-		if (elapsed > 1L) {
-			m_lastMove = now;
-			saut(now);
-			if (collisionTerrain()) {
-				m_dy = 1;
-				collisionTerrain();
+		if (!m_explode) {
+			long elapsed = now - m_lastMove;
+			if (elapsed > 1L) {
+				m_lastMove = now;
+				saut(now);
+				if (collisionTerrain()) {
+					m_dy = 1;
+					collisionTerrain();
+				}
+				m_model.m_cam.m_posx += m_dx;
+				m_x += m_dx;
+				m_y += m_dy;
+				if (!surSol() && !m_saut) {
+					m_dy = 1;
+				}
+				if (m_nsteps == 32) {
+					m_nsteps = 0;
+					if (m_dx < 0 && m_no_sprite != 7)
+						selectSprite(7);
+					else if (m_dx < 0)
+						selectSprite(8);
+					else if (m_dx > 0 && m_no_sprite != 19)
+						selectSprite(19);
+					else if (m_dx > 0)
+						selectSprite(20);
+				}
+				updateHitbox();
+				m_nsteps++;
+				if (collisionGhost()) {
+					m_explode = true;
+					setExplosion(m_model.m_explosionSprite, 11, 10);
+					m_explosion.setPosition(m_initx+m_w, m_y+m_h, m_scale);
+					m_explosion.step(now);
+				}
 			}
-			m_model.m_cam.m_posx += m_dx;
-			m_x += m_dx;
-			m_y += m_dy;
-			if (!surSol() && !m_saut) {
-				m_dy = 1;
-			}
-			if (m_nsteps == 32) {
-				m_nsteps = 0;
-				if (m_dx < 0 && m_no_sprite != 7)
-					selectSprite(7);
-				else if (m_dx < 0)
-					selectSprite(8);
-				else if (m_dx > 0 && m_no_sprite != 19)
-					selectSprite(19);
-				else if (m_dx > 0)
-					selectSprite(20);
-			}
-			updateHitbox();
-			m_nsteps++;
-			if(collisionGhost()) {
-				System.out.println("coucoutmor");
-			}
+
+		}
+		else {
+			m_explosion.step(now);
 		}
 	}
 

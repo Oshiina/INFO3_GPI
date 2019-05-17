@@ -74,8 +74,13 @@ public class View extends GameView {
 		}
 
 		Cowboy cowboys = m_model.cowboys();
-		cowboys.paint(g);
-
+		if(!cowboys.m_explode) {
+			cowboys.paint(g);
+		}
+		else {
+			cowboys.m_explosion.paint(g);
+		}
+		
 		for (int i = 1; i <= m_model.m_nbghosts; i++) {
 			Ghost ghost = m_model.getGhost(i);
 			ghost.paint(g);
