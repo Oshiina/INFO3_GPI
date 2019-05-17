@@ -74,11 +74,14 @@ public class View extends GameView {
 	      s.paint(g);
 	    }
 
-		Cowboy cowboys = m_model.m_cowboys;
+		Cowboy cowboys = m_model.cowboys();
 		cowboys.paint(g);
 		
-		Ghost ghost = m_model.m_ghost;
-		ghost.paint(g);
+		for(int i = 1;i<=m_model.nb_ghosts;i++) {
+			Ghost ghost = m_model.getGhost(i);
+			ghost.paint(g);
+		}
+
 
 
 	}

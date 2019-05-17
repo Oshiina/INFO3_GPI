@@ -73,4 +73,10 @@ public class Entity {
 		return col;
 	}
 	
+	boolean collision(Entity e) {
+		
+		
+		return false;
+	}
+	
 }

@@ -29,31 +29,31 @@ import edu.ricm3.game.GameModel;
 
 public class Model extends GameModel {
 	LinkedList<Rect> m_rects;
+	LinkedList<Entity> m_entity;
 	BufferedImage m_cowboySprite;
 	BufferedImage m_explosionSprite;
 	BufferedImage m_ghostSprite;
-	Cowboy m_cowboys;
-	Ghost m_ghost;
 	Random rand = new Random();
 	Camera m_cam;
+	int nb_ghosts;
 
 	public Model() {
 		loadSprites();
 		
 		m_cam = new Camera(this);
 
-		m_rects = new LinkedList<Rect>();
-		
+		m_rects = new LinkedList<Rect>();	
 		m_rects.add(new Rect(this, 0,600,5000,200,100,255,20));
 		m_rects.add(new Rect(this, 0,620,5000,80,88,41,0));
 		m_rects.add(new Rect(this, 584,450,100,20,255,125,0));
 		m_rects.add(new Rect(this, -300,0,300,800,88,41,0));
 		m_rects.add(new Rect(this, 1800,0,300,800,88,41,0));
 	
+		m_entity = new LinkedList<Entity>();
+		m_entity.add(new Cowboy(this,2,m_cowboySprite,4,6,200,477,3F));
+		m_entity.add(new Ghost(this,1,m_ghostSprite,4,10,500,500,2F));
 	
-		m_cowboys = new Cowboy(this,2,m_cowboySprite,4,6,200,477,3F);
-		m_ghost = new Ghost(this,1,m_ghostSprite,4,10,500,500,2F);
-	
+		nb_ghosts = 1;
 	}
 	
 
@@ -64,11 +64,19 @@ public class Model extends GameModel {
 
 
 	public Cowboy cowboys() {
-		return m_cowboys;
+		return(Cowboy) m_entity.get(0);
 	}
 
 	public Iterator<Rect> rects() {
 		return m_rects.iterator();
+	}
+	
+	public Iterator<Entity> entities() {
+		return m_entity.iterator();
+	}
+	
+	Ghost getGhost(int index) {
+		return (Ghost)m_entity.get(index);
 	}
 	/**
 	 * Simulation step.
@@ -78,9 +86,10 @@ public class Model extends GameModel {
 	 */
 	@Override
 	public void step(long now) {
-
-		m_cowboys.step(now);
-		m_ghost.step(now);
+		cowboys().step(now);
+		for (int i=1;i<=nb_ghosts;i++) {
+			getGhost(i).step(now);
+		}		
 	}
 
 	private void loadSprites() {
