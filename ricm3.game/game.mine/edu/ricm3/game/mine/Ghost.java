@@ -26,7 +26,7 @@ public class Ghost extends Entity{
 		long elapsed = now - m_lastMove;		
 		if (elapsed > 4L) {
 			m_lastMove = now;
-			if(collision()) {
+			if(collisionTerrain()) {
 				gauche = -gauche;
 				m_dx = gauche;
 			}

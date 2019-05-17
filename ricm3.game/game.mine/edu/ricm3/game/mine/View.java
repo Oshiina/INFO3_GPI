@@ -66,23 +66,20 @@ public class View extends GameView {
 		// Paint our model, grabbing the elements,
 		// in our case, the squares.
 
-
-	    // in our case, the squares.
-	    Iterator<Rect> iter = m_model.rects();
-	    while (iter.hasNext()) {
-	      Rect s = iter.next();
-	      s.paint(g);
-	    }
+		// in our case, the squares.
+		Iterator<Rect> iter = m_model.rects();
+		while (iter.hasNext()) {
+			Rect s = iter.next();
+			s.paint(g);
+		}
 
 		Cowboy cowboys = m_model.cowboys();
 		cowboys.paint(g);
-		
-		for(int i = 1;i<=m_model.nb_ghosts;i++) {
+
+		for (int i = 1; i <= m_model.m_nbghosts; i++) {
 			Ghost ghost = m_model.getGhost(i);
 			ghost.paint(g);
 		}
-
-
 
 	}
 }
