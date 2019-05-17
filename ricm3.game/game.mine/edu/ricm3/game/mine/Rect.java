@@ -57,7 +57,7 @@ public class Rect {
    */
   void paint(Graphics g) {
 	  Camera cam = m_model.m_cam;
-	  if((cam.m_posx + cam.m_w >= m_x && cam.m_posx <= m_x) || (cam.m_posx <= m_size_x + m_x && cam.m_posx + cam.m_w >= m_size_x + m_x)) {
+	  if((cam.m_posx + cam.m_w >= m_x && cam.m_posx <= m_x) || (cam.m_posx <= m_size_x + m_x && cam.m_posx + cam.m_w >= m_size_x + m_x) || (cam.m_posx >= m_x && cam.m_posx + cam.m_w <= m_x + m_size_x)) {
 		    g.setColor(m_color);
 		    g.fillRect(m_x-cam.m_posx, m_y, m_size_x, m_size_y);
 	  }

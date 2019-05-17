@@ -41,8 +41,6 @@ import java.util.Iterator;
 public class Cowboy extends Entity{
 	
 	int m_initx;
-	int m_hitbox_w, m_hitbox_h;
-	int m_hitbox_x,m_hitbox_y;
 	int m_nsteps;
 	long m_debutsaut;
 	boolean m_saut,m_finsaut;
@@ -90,6 +88,21 @@ public class Cowboy extends Entity{
 			}
 		}
 	}
+	
+	boolean surSol() {
+		int x = m_hitbox_x;
+		int y = m_hitbox_y;
+		int h = m_hitbox_h;
+		int w = m_hitbox_w;
+		Iterator<Rect> iter = m_model.rects();
+		while(iter.hasNext()) {
+			Rect r = iter.next();
+			if (y+m_dy+h >= r.m_y-1 && ( x > r.m_x + r.m_size_x || x + w < m_x)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Simulation step. This is essentially a finite state automaton.
@@ -109,36 +122,22 @@ public class Cowboy extends Entity{
 			m_model.m_cam.m_posx += m_dx;
 			m_x += m_dx;
 			m_y += m_dy;
+			if(!surSol()) {
+				m_y += 1;
+				System.out.println("coucou");
+			}
 			if(m_nsteps == 32) {
 				m_nsteps = 0;
 				if(m_dx < 0 && m_no_sprite !=7) selectSprite(7);
 				else if(m_dx < 0) selectSprite(8);
 				else if(m_dx > 0 && m_no_sprite !=19) selectSprite(19);
 				else if(m_dx > 0) selectSprite(20);
-				else selectSprite(0);
 			}
 			updateHitbox();
 			m_nsteps++;
 		}
 	}
 
-	boolean collision() {
-		boolean col = false;
-		int x = m_hitbox_x;
-		int y = m_hitbox_y;
-		int w = m_hitbox_w;
-		int h = m_hitbox_h;
-		Iterator<Rect> iter = m_model.rects();
-		while(iter.hasNext()) {
-			Rect r = iter.next();
-			if (x+m_dx < r.m_x+r.m_size_x && x+m_dx+w > r.m_x && y+m_dy < r.m_y+r.m_size_y && y+m_dy+h > r.m_y) {
-				this.m_dx = 0;
-				this.m_dy = 0;
-				col = true;
-			}
-		}
-		return col;
-	}
 
 	/**
 	 * paints this square on the screen.

@@ -31,7 +31,9 @@ public class Model extends GameModel {
 	LinkedList<Rect> m_rects;
 	BufferedImage m_cowboySprite;
 	BufferedImage m_explosionSprite;
+	BufferedImage m_ghostSprite;
 	Cowboy m_cowboys;
+	Ghost m_ghost;
 	Random rand = new Random();
 	Camera m_cam;
 
@@ -39,15 +41,21 @@ public class Model extends GameModel {
 		loadSprites();
 		
 		m_cam = new Camera(this);
-		m_cowboys = new Cowboy(this,2,m_cowboySprite,4,6,200,477,3F);
 
 		m_rects = new LinkedList<Rect>();
 		
-		m_rects.add(new Rect(this, 0,600,1024,200,100,255,20));
-		m_rects.add(new Rect(this, 0,620,1024,80,88,41,0));
+		m_rects.add(new Rect(this, 0,600,5000,200,100,255,20));
+		m_rects.add(new Rect(this, 0,620,5000,80,88,41,0));
 		m_rects.add(new Rect(this, 584,450,100,20,255,125,0));
 		m_rects.add(new Rect(this, -300,0,300,800,88,41,0));
+		m_rects.add(new Rect(this, 1800,0,300,800,88,41,0));
+	
+	
+		m_cowboys = new Cowboy(this,2,m_cowboySprite,4,6,200,477,3F);
+		m_ghost = new Ghost(this,1,m_ghostSprite,4,10,500,500,2F);
+	
 	}
+	
 
 	@Override
 	public void shutdown() {
@@ -72,6 +80,7 @@ public class Model extends GameModel {
 	public void step(long now) {
 
 		m_cowboys.step(now);
+		m_ghost.step(now);
 	}
 
 	private void loadSprites() {
@@ -90,9 +99,17 @@ public class Model extends GameModel {
 		 * Long explosion set; png file; 64x64 px sprite size
 		 * Krasi Wasilev ( http://freegameassets.blogspot.com)
 		 */
-		imageFile = new File("game.sample/sprites/explosion01_set_64.png");
+		imageFile = new File("game.mine/sprites/explosion01_set_64.png");
 		try {
 			m_explosionSprite = ImageIO.read(imageFile);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			System.exit(-1);
+		}
+		
+		imageFile = new File("game.mine/sprites/game_sprite_png_547353.png");
+		try {
+			m_ghostSprite = ImageIO.read(imageFile);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			System.exit(-1);

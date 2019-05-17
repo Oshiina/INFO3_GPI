@@ -1,11 +1,14 @@
 package edu.ricm3.game.mine;
 
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 
 public class Entity {
 	
 	int m_w, m_h;
 	int m_x, m_y;
+	int m_hitbox_w, m_hitbox_h;
+	int m_hitbox_x,m_hitbox_y;
 	int m_dx,m_dy;
 	int m_nrows, m_ncols;
 	int m_no_sprite;
@@ -50,6 +53,24 @@ public class Entity {
 	void selectSprite(int no) {
 		m_sprite = m_sprites[no];
 		m_no_sprite = no;
+	}
+	
+	boolean collision() {
+		boolean col = false;
+		int x = m_hitbox_x;
+		int y = m_hitbox_y;
+		int w = m_hitbox_w;
+		int h = m_hitbox_h;
+		Iterator<Rect> iter = m_model.rects();
+		while(iter.hasNext()) {
+			Rect r = iter.next();
+			if (x+m_dx < r.m_x+r.m_size_x && x+m_dx+w > r.m_x && y+m_dy < r.m_y+r.m_size_y && y+m_dy+h > r.m_y) {
+				this.m_dx = 0;
+				this.m_dy = 0;
+				col = true;
+			}
+		}
+		return col;
 	}
 	
 }

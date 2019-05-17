@@ -68,55 +68,55 @@ public class Controller extends GameController implements ActionListener {
   public void keyTyped(KeyEvent e) {
 //    if (Options.ECHO_KEYBOARD)
 //      System.out.println("KeyTyped: " + e);
-    if (e.getKeyChar() == ' ') {
+  /*  if (e.getKeyChar() == ' ') {
       try {
         /*
          * NEVER, EVER, DO THIS!
          * NEVER LOOP FOR LONG, NEVER BLOCK, OR NEVER SLEEP,
          * YOU WILL BLOCK EVERYTHING.
          */
-        System.err.println("You should not have done that!");
+   /*     System.err.println("You should not have done that!");
         System.out.println("ZZzzz....");
         Thread.sleep(3000);
         System.out.println("Hey! I am back");
       } catch (InterruptedException ex) {
       }
-    } 
+    } */
   }
 
   @Override
   public void keyPressed(KeyEvent e) {
-	  if (e.getKeyChar() == 'd') {
+	  if (e.getKeyChar() == 'd' || e.getKeyChar() == 'D') {
 		  m_model.m_cowboys.m_dx = 1;
 	  }
-	  else if(e.getKeyChar() == 'q') {
+	  else if(e.getKeyChar() == 'q'|| e.getKeyChar() == 'Q') {
 		  m_model.m_cowboys.m_dx = -1;
 	  }
-	  else if(e.getKeyChar() == 'z') {
+	  else if(e.getKeyChar() == 'z'|| e.getKeyChar() == 'Z') {
 		  m_model.m_cowboys.m_dy = -1;
 		  m_model.m_cowboys.m_saut = true;
 	  }
-	  else if(e.getKeyChar() == 's') {
+	  else if(e.getKeyChar() == 's'|| e.getKeyChar() == 'S') {
 		  m_model.m_cowboys.m_dy = 1;
 	  }
   }
 
   @Override
   public void keyReleased(KeyEvent e) {
-	  if (e.getKeyChar() == 'd') {
+	  if (e.getKeyChar() == 'd'|| e.getKeyChar() == 'D') {
 		  m_model.m_cowboys.m_dx = 0;
 		  m_model.m_cowboys.m_dy = 1;
 	  }
-	  else if(e.getKeyChar() == 'q') {
+	  else if(e.getKeyChar() == 'q'|| e.getKeyChar() == 'Q') {
 		  m_model.m_cowboys.m_dx = 0;
 		  m_model.m_cowboys.m_dy = 1;
 	  }
-	  else if(e.getKeyChar() == 'z') {
+	  else if(e.getKeyChar() == 'z'|| e.getKeyChar() == 'Z') {
 		  m_model.m_cowboys.m_dy = 1;
 		  m_model.m_cowboys.m_saut = false;
 		  m_model.m_cowboys.m_finsaut = true;
 	  }
-	  else if(e.getKeyChar() == 's') {
+	  else if(e.getKeyChar() == 's'|| e.getKeyChar() == 'S') {
 		  m_model.m_cowboys.m_dy = 1;
 	  }
   }
