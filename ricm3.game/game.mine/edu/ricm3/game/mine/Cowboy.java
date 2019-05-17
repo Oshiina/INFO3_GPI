@@ -39,13 +39,14 @@ import java.util.Iterator;
 
 public class Cowboy extends Entity {
 
-	int m_initx,m_inity;
+	int m_initx, m_inity;
 	int m_nsteps;
 	int m_hp;
 	long m_debutsaut;
 	boolean m_saut, m_finsaut;
 	boolean m_explode;
 	Explosion m_explosion;
+	boolean m_fin;
 
 	Cowboy(Model model, int no, BufferedImage sprite, int rows, int columns, int x, int y, float scale) {
 		super(model, no, sprite, rows, columns, x, y, scale);
@@ -57,6 +58,7 @@ public class Cowboy extends Entity {
 		m_inity = y;
 		m_explode = false;
 		m_hp = 3;
+		m_fin = false;
 	}
 
 	void setExplosion(BufferedImage sprite, int rows, int columns) {
@@ -141,18 +143,20 @@ public class Cowboy extends Entity {
 				}
 				updateHitbox();
 				m_nsteps++;
-				if (collisionGhost()) {
+				if (collisionGhost() || m_y > 760) {
 					m_explode = true;
 					setExplosion(m_model.m_explosionSprite, 11, 10);
-					m_explosion.setPosition(m_initx+m_w, m_y+m_h, m_scale);
+					m_explosion.setPosition(m_initx + m_w, m_y + m_h, m_scale);
 					m_explosion.step(now);
-					m_hp --;
+					m_hp--;
 				}
 			}
 
-		}
-		else {
+		} else {
 			m_explosion.step(now);
+		}
+		if(m_x > 6000) {
+			m_fin = true;
 		}
 	}
 

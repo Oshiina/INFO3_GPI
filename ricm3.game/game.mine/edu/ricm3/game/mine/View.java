@@ -88,6 +88,13 @@ public class View extends GameView {
 			g.drawString("Game Over", 320, 300);
 		}
 		
+		if(cowboys.m_fin) {
+			Font f = new Font("Win",Font.BOLD,50);
+			g.setFont(f);
+			g.setColor(Color.blue);
+			g.drawString("Victoire", 350, 300);
+		}
+		
 		for (int i = 1; i <= m_model.m_nbghosts; i++) {
 			Ghost ghost = m_model.getGhost(i);
 			ghost.paint(g);

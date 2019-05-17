@@ -79,7 +79,7 @@ public class Explosion {
       else {
     	  m_model.cowboys().m_explode = false;
     	  m_model.cowboys().m_x = m_model.cowboys().m_initx;
-    	  m_model.cowboys().m_y = m_model.cowboys().m_inity;
+    	  m_model.cowboys().m_y = m_model.cowboys().m_inity -1;
     	  m_model.m_cam.m_posx = 0;
       }
     }
