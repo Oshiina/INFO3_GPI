@@ -97,7 +97,7 @@ public class Cowboy extends Entity{
 		Iterator<Rect> iter = m_model.rects();
 		while(iter.hasNext()) {
 			Rect r = iter.next();
-			if (y+m_dy+h >= r.m_y-1 && ( x > r.m_x + r.m_size_x || x + w < m_x)) {
+			if (y+h >= r.m_y && ( x < r.m_x + r.m_size_x || x + w > m_x)) {
 				return true;
 			}
 		}
