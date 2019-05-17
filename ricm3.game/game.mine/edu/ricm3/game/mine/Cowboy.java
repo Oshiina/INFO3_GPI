@@ -39,7 +39,7 @@ import java.util.Iterator;
 
 public class Cowboy extends Entity {
 
-	int m_initx;
+	int m_initx,m_inity;
 	int m_nsteps;
 	int m_hp;
 	long m_debutsaut;
@@ -54,6 +54,7 @@ public class Cowboy extends Entity {
 		m_debutsaut = 0;
 		m_saut = false;
 		m_initx = x;
+		m_inity = y;
 		m_explode = false;
 		m_hp = 3;
 	}

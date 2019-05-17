@@ -18,6 +18,7 @@
 package edu.ricm3.game.mine;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.Iterator;
 
@@ -60,7 +61,7 @@ public class View extends GameView {
 		computeFPS();
 
 		// erase background
-		g.setColor(m_background);
+		g.setColor(new Color(150,220,255));
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		// Paint our model, grabbing the elements,
@@ -77,8 +78,14 @@ public class View extends GameView {
 		if(!cowboys.m_explode && cowboys.m_hp > 0) {
 			cowboys.paint(g);
 		}
-		else {
+		else if(cowboys.m_explode){
 			cowboys.m_explosion.paint(g);
+		}
+		else {
+			Font f = new Font("Game Over",Font.BOLD,50);
+			g.setFont(f);
+			g.setColor(Color.red);
+			g.drawString("Game Over", 320, 300);
 		}
 		
 		for (int i = 1; i <= m_model.m_nbghosts; i++) {

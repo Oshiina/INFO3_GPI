@@ -46,15 +46,17 @@ public class Model extends GameModel {
 		m_rects.add(new Rect(this, 0, 620, 5000, 80, 88, 41, 0));
 		m_rects.add(new Rect(this, 584, 450, 100, 20, 255, 125, 0));
 		m_rects.add(new Rect(this, 884, 300, 100, 20, 255, 125, 0));
+		m_rects.add(new Rect(this, 1401, 300, 100, 20, 255, 125, 0));
 		m_rects.add(new Rect(this, -300, 0, 300, 800, 88, 41, 0));
-		m_rects.add(new Rect(this, 1800, 480, 300, 200, 100, 255, 20));
-		m_rects.add(new Rect(this, 1800, 500, 300, 800, 88, 41, 0));
+		m_rects.add(new Rect(this, 1800, 280, 700, 200, 100, 255, 20));
+		m_rects.add(new Rect(this, 1800, 300, 700, 800, 88, 41, 0));
 
 		m_entity = new LinkedList<Entity>();
 		m_entity.add(new Cowboy(this, 2, m_cowboySprite, 4, 6, 200, 477, 3F));
 		m_entity.add(new Ghost(this, 1, m_ghostSprite, 4, 10, 800, 500, 2F));
+		m_entity.add(new Ghost(this,1,m_ghostSprite,4,10,1900,180,2F));
 
-		m_nbghosts = 1;
+		m_nbghosts = 2;
 	}
 
 	@Override
