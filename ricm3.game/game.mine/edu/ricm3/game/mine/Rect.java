@@ -56,8 +56,11 @@ public class Rect {
    * @param g
    */
   void paint(Graphics g) {
-    g.setColor(m_color);
-    g.fillRect(m_x, m_y, m_size_x, m_size_y);
+	  Camera cam = m_model.m_cam;
+	  if((cam.m_posx + cam.m_w >= m_x && cam.m_posx <= m_x) || (cam.m_posx <= m_size_x + m_x && cam.m_posx + cam.m_w >= m_size_x + m_x)) {
+		    g.setColor(m_color);
+		    g.fillRect(m_x-cam.m_posx, m_y, m_size_x, m_size_y);
+	  }
   }
 
 }

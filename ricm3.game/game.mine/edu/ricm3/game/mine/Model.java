@@ -33,16 +33,20 @@ public class Model extends GameModel {
 	BufferedImage m_explosionSprite;
 	Cowboy m_cowboys;
 	Random rand = new Random();
+	Camera m_cam;
 
 	public Model() {
 		loadSprites();
+		
+		m_cam = new Camera(this);
 		m_cowboys = new Cowboy(this,2,m_cowboySprite,4,6,200,477,3F);
 
 		m_rects = new LinkedList<Rect>();
 		
 		m_rects.add(new Rect(this, 0,600,1024,200,100,255,20));
 		m_rects.add(new Rect(this, 0,620,1024,80,88,41,0));
-		m_rects.add(new Rect(this, 584,400,200,20,255,125,0));
+		m_rects.add(new Rect(this, 584,450,100,20,255,125,0));
+		m_rects.add(new Rect(this, -300,0,300,800,88,41,0));
 	}
 
 	@Override

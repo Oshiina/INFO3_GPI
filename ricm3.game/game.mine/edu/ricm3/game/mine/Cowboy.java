@@ -17,7 +17,6 @@
  */
 package edu.ricm3.game.mine;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -40,7 +39,8 @@ import java.util.Iterator;
  */
 
 public class Cowboy extends Entity{
-
+	
+	int m_initx;
 	int m_hitbox_w, m_hitbox_h;
 	int m_hitbox_x,m_hitbox_y;
 	int m_nsteps;
@@ -53,6 +53,7 @@ public class Cowboy extends Entity{
 		m_nsteps = 0;
 		m_debutsaut = 0;
 		m_saut = false;
+		m_initx = x;
 	}
 
 
@@ -62,9 +63,9 @@ public class Cowboy extends Entity{
 
 
 	void updateHitbox() {
-		m_hitbox_x = (int) (m_x + m_scale * 4);
+		m_hitbox_x = (int) (m_x + m_scale * 8);
 		m_hitbox_y = (int) (m_y + m_scale * 8);
-		m_hitbox_w = (int) ((m_w - 8) * m_scale);
+		m_hitbox_w = (int) ((m_w - 16) * m_scale);
 		m_hitbox_h = (int) ((m_h - 15) * m_scale);
 	}
 
@@ -74,7 +75,7 @@ public class Cowboy extends Entity{
 			if(m_debutsaut == 0) {
 				m_debutsaut = now;
 			}
-			else if(dureesaut > 750L || m_finsaut) {
+			else if(dureesaut > 600L || m_finsaut) {
 				m_dy = 1;
 			}
 		}
@@ -101,7 +102,11 @@ public class Cowboy extends Entity{
 		if (elapsed > 1L) {
 			m_lastMove = now;
 			saut(now);			
-			collision();
+			if(collision()) {
+				m_dy = 1;
+				collision();
+			}
+			m_model.m_cam.m_posx += m_dx;
 			m_x += m_dx;
 			m_y += m_dy;
 			if(m_nsteps == 32) {
@@ -117,7 +122,8 @@ public class Cowboy extends Entity{
 		}
 	}
 
-	void collision() {
+	boolean collision() {
+		boolean col = false;
 		int x = m_hitbox_x;
 		int y = m_hitbox_y;
 		int w = m_hitbox_w;
@@ -128,9 +134,10 @@ public class Cowboy extends Entity{
 			if (x+m_dx < r.m_x+r.m_size_x && x+m_dx+w > r.m_x && y+m_dy < r.m_y+r.m_size_y && y+m_dy+h > r.m_y) {
 				this.m_dx = 0;
 				this.m_dy = 0;
+				col = true;
 			}
-
 		}
+		return col;
 	}
 
 	/**
@@ -142,11 +149,7 @@ public class Cowboy extends Entity{
 		Image img = m_sprite;
 		int w = (int)(m_scale * m_w);
 		int h = (int)(m_scale * m_h);
-		g.drawImage(img, m_x, m_y, w, h, null);
-		g.setColor(Color.red);
-		g.drawRect(m_x, m_y, w, h);
-		g.setColor(Color.blue);
-		g.drawRect(m_hitbox_x, m_hitbox_y,m_hitbox_w,m_hitbox_h);
+		g.drawImage(img, m_initx, m_y, w, h, null);
 	}
 
 }
